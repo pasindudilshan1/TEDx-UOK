@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import { FormInput } from '../../components/forms/FormInput';
-import { FormSelect } from '../../components/forms/FormSelect';
-import { SubmitButton } from '../../components/forms/SubmitButton';
-import { FormMessage } from '../../components/forms/FormMessage';
+import React, { useState } from "react";
+import { FormInput } from "../../components/forms/FormInput";
+import { FormSelect } from "../../components/forms/FormSelect";
+import { SubmitButton } from "../../components/forms/SubmitButton";
+import { FormMessage } from "../../components/forms/FormMessage";
+import { useSEO } from "../../hooks/useSEO";
+import { seoConfig } from "../../config/seo";
 
 interface RegistrationFormData {
   full_name: string;
@@ -20,26 +22,29 @@ interface FormErrors {
 }
 
 export const RegistrationPage: React.FC = () => {
+  // SEO: Set page title and meta description
+  useSEO(seoConfig.registration);
+
   const [formData, setFormData] = useState<RegistrationFormData>({
-    full_name: '',
-    email: '',
-    phone: '',
-    ticket_type: '',
-    event_id: 'EVENT_001', // Hidden field - default event ID
+    full_name: "",
+    email: "",
+    phone: "",
+    ticket_type: "",
+    event_id: "EVENT_001", // Hidden field - default event ID
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
   const [loading, setLoading] = useState(false);
   const [submitMessage, setSubmitMessage] = useState<{
-    type: 'success' | 'error';
+    type: "success" | "error";
     text: string;
   } | null>(null);
 
   const ticketOptions = [
-    { value: 'general', label: 'General Admission - LKR 1,000' },
-    { value: 'vip', label: 'VIP - LKR 2,500' },
-    { value: 'student', label: 'Student - LKR 500' },
-    { value: 'early_bird', label: 'Early Bird - LKR 800' },
+    { value: "general", label: "General Admission - LKR 1,000" },
+    { value: "vip", label: "VIP - LKR 2,500" },
+    { value: "student", label: "Student - LKR 500" },
+    { value: "early_bird", label: "Early Bird - LKR 800" },
   ];
 
   const validateEmail = (email: string): boolean => {
@@ -57,28 +62,28 @@ export const RegistrationPage: React.FC = () => {
 
     // Validate full_name
     if (!formData.full_name.trim()) {
-      newErrors.full_name = 'Full name is required';
+      newErrors.full_name = "Full name is required";
     } else if (formData.full_name.trim().length < 2) {
-      newErrors.full_name = 'Name must be at least 2 characters';
+      newErrors.full_name = "Name must be at least 2 characters";
     }
 
     // Validate email
     if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
+      newErrors.email = "Email is required";
     } else if (!validateEmail(formData.email)) {
-      newErrors.email = 'Please enter a valid email address';
+      newErrors.email = "Please enter a valid email address";
     }
 
     // Validate phone
     if (!formData.phone.trim()) {
-      newErrors.phone = 'Phone number is required';
+      newErrors.phone = "Phone number is required";
     } else if (!validatePhone(formData.phone)) {
-      newErrors.phone = 'Please enter a valid phone number';
+      newErrors.phone = "Please enter a valid phone number";
     }
 
     // Validate ticket_type
     if (!formData.ticket_type) {
-      newErrors.ticket_type = 'Please select a ticket type';
+      newErrors.ticket_type = "Please select a ticket type";
     }
 
     setErrors(newErrors);
@@ -106,8 +111,8 @@ export const RegistrationPage: React.FC = () => {
 
     if (!validateForm()) {
       setSubmitMessage({
-        type: 'error',
-        text: 'Please fix the errors above before submitting',
+        type: "error",
+        text: "Please fix the errors above before submitting",
       });
       return;
     }
@@ -119,26 +124,26 @@ export const RegistrationPage: React.FC = () => {
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
       // Log the form data (in production, this would be sent to backend)
-      console.log('Registration Data:', formData);
+      console.log("Registration Data:", formData);
 
       setSubmitMessage({
-        type: 'success',
-        text: 'Registration successful! Check your email for confirmation.',
+        type: "success",
+        text: "Registration successful! Check your email for confirmation.",
       });
 
       // Reset form after successful submission
       setFormData({
-        full_name: '',
-        email: '',
-        phone: '',
-        ticket_type: '',
-        event_id: 'EVENT_001',
+        full_name: "",
+        email: "",
+        phone: "",
+        ticket_type: "",
+        event_id: "EVENT_001",
       });
       setErrors({});
     } catch (error) {
       setSubmitMessage({
-        type: 'error',
-        text: 'Something went wrong. Please try again.',
+        type: "error",
+        text: "Something went wrong. Please try again.",
       });
     } finally {
       setLoading(false);

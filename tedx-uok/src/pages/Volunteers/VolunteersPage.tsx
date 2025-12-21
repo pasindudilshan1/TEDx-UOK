@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import { FormInput } from '../../components/forms/FormInput';
-import { FormSelect } from '../../components/forms/FormSelect';
-import { SubmitButton } from '../../components/forms/SubmitButton';
-import { FormMessage } from '../../components/forms/FormMessage';
+import React, { useState } from "react";
+import { FormInput } from "../../components/forms/FormInput";
+import { FormSelect } from "../../components/forms/FormSelect";
+import { SubmitButton } from "../../components/forms/SubmitButton";
+import { FormMessage } from "../../components/forms/FormMessage";
+import { useSEO } from "../../hooks/useSEO";
+import { seoConfig } from "../../config/seo";
 
 interface VolunteerFormData {
   full_name: string;
@@ -26,38 +28,41 @@ interface FormErrors {
 }
 
 export const VolunteersPage: React.FC = () => {
+  // SEO: Set page title and meta description
+  useSEO(seoConfig.volunteers);
+
   const [formData, setFormData] = useState<VolunteerFormData>({
-    full_name: '',
-    email: '',
-    phone: '',
-    university: '',
-    interest_area: '',
-    availability: '',
-    cv_url: '',
-    event_id: 'EVENT_001', // Hidden field - default event ID
+    full_name: "",
+    email: "",
+    phone: "",
+    university: "",
+    interest_area: "",
+    availability: "",
+    cv_url: "",
+    event_id: "EVENT_001", // Hidden field - default event ID
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
   const [loading, setLoading] = useState(false);
   const [submitMessage, setSubmitMessage] = useState<{
-    type: 'success' | 'error';
+    type: "success" | "error";
     text: string;
   } | null>(null);
 
   const interestAreaOptions = [
-    { value: 'logistics', label: 'Logistics & Operations' },
-    { value: 'marketing', label: 'Marketing & Social Media' },
-    { value: 'tech', label: 'Technical Support' },
-    { value: 'registration', label: 'Registration & Guest Services' },
-    { value: 'content', label: 'Content Creation' },
-    { value: 'photography', label: 'Photography & Videography' },
+    { value: "logistics", label: "Logistics & Operations" },
+    { value: "marketing", label: "Marketing & Social Media" },
+    { value: "tech", label: "Technical Support" },
+    { value: "registration", label: "Registration & Guest Services" },
+    { value: "content", label: "Content Creation" },
+    { value: "photography", label: "Photography & Videography" },
   ];
 
   const availabilityOptions = [
-    { value: 'weekdays', label: 'Weekdays' },
-    { value: 'weekends', label: 'Weekends' },
-    { value: 'both', label: 'Both Weekdays & Weekends' },
-    { value: 'event_day', label: 'Event Day Only' },
+    { value: "weekdays", label: "Weekdays" },
+    { value: "weekends", label: "Weekends" },
+    { value: "both", label: "Both Weekdays & Weekends" },
+    { value: "event_day", label: "Event Day Only" },
   ];
 
   const validateEmail = (email: string): boolean => {
@@ -85,43 +90,43 @@ export const VolunteersPage: React.FC = () => {
 
     // Validate full_name
     if (!formData.full_name.trim()) {
-      newErrors.full_name = 'Full name is required';
+      newErrors.full_name = "Full name is required";
     } else if (formData.full_name.trim().length < 2) {
-      newErrors.full_name = 'Name must be at least 2 characters';
+      newErrors.full_name = "Name must be at least 2 characters";
     }
 
     // Validate email
     if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
+      newErrors.email = "Email is required";
     } else if (!validateEmail(formData.email)) {
-      newErrors.email = 'Please enter a valid email address';
+      newErrors.email = "Please enter a valid email address";
     }
 
     // Validate phone
     if (!formData.phone.trim()) {
-      newErrors.phone = 'Phone number is required';
+      newErrors.phone = "Phone number is required";
     } else if (!validatePhone(formData.phone)) {
-      newErrors.phone = 'Please enter a valid phone number';
+      newErrors.phone = "Please enter a valid phone number";
     }
 
     // Validate university
     if (!formData.university.trim()) {
-      newErrors.university = 'University name is required';
+      newErrors.university = "University name is required";
     }
 
     // Validate interest_area
     if (!formData.interest_area) {
-      newErrors.interest_area = 'Please select an interest area';
+      newErrors.interest_area = "Please select an interest area";
     }
 
     // Validate availability
     if (!formData.availability) {
-      newErrors.availability = 'Please select your availability';
+      newErrors.availability = "Please select your availability";
     }
 
     // Validate cv_url (optional but must be valid URL if provided)
     if (formData.cv_url && !validateURL(formData.cv_url)) {
-      newErrors.cv_url = 'Please enter a valid URL';
+      newErrors.cv_url = "Please enter a valid URL";
     }
 
     setErrors(newErrors);
@@ -149,8 +154,8 @@ export const VolunteersPage: React.FC = () => {
 
     if (!validateForm()) {
       setSubmitMessage({
-        type: 'error',
-        text: 'Please fix the errors above before submitting',
+        type: "error",
+        text: "Please fix the errors above before submitting",
       });
       return;
     }
@@ -162,29 +167,29 @@ export const VolunteersPage: React.FC = () => {
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
       // Log the form data (in production, this would be sent to backend)
-      console.log('Volunteer Data:', formData);
+      console.log("Volunteer Data:", formData);
 
       setSubmitMessage({
-        type: 'success',
-        text: 'Thank you for volunteering! We will contact you soon.',
+        type: "success",
+        text: "Thank you for volunteering! We will contact you soon.",
       });
 
       // Reset form after successful submission
       setFormData({
-        full_name: '',
-        email: '',
-        phone: '',
-        university: '',
-        interest_area: '',
-        availability: '',
-        cv_url: '',
-        event_id: 'EVENT_001',
+        full_name: "",
+        email: "",
+        phone: "",
+        university: "",
+        interest_area: "",
+        availability: "",
+        cv_url: "",
+        event_id: "EVENT_001",
       });
       setErrors({});
     } catch (error) {
       setSubmitMessage({
-        type: 'error',
-        text: 'Something went wrong. Please try again.',
+        type: "error",
+        text: "Something went wrong. Please try again.",
       });
     } finally {
       setLoading(false);
@@ -296,15 +301,14 @@ export const VolunteersPage: React.FC = () => {
             />
 
             <div className="pt-4">
-              <SubmitButton loading={loading}>
-                Submit Application
-              </SubmitButton>
+              <SubmitButton loading={loading}>Submit Application</SubmitButton>
             </div>
           </form>
 
           <div className="mt-6 text-center">
             <p className="text-gray-500 text-sm">
-              We'll review your application and get back to you within 3-5 business days
+              We'll review your application and get back to you within 3-5
+              business days
             </p>
           </div>
         </div>
