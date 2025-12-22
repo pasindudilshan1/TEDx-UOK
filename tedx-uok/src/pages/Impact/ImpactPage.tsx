@@ -2,7 +2,7 @@ import React from "react";
 
 import Card from "../../components/ui/Card";
 import Section from "../../components/ui/Section";
-import { Leaf, Droplets, Zap, Heart, Users, type LucideIcon } from "lucide-react";
+import { Leaf, Droplets, Zap, Heart, Users, Ticket, Recycle, Ban, Bus, Globe, Utensils, type LucideIcon } from "lucide-react";
 
 import Navbar from "../../components/layout/Navbar";
 import Footer from "../../components/layout/Footer";
@@ -164,29 +164,88 @@ const ImpactPage = () => {
 
             {/* Sustainability Practices */}
             <Section className="mb-16 animate-on-scroll opacity-0 w-full max-w-[1280px] mx-auto">
-                <h2 className="text-3xl font-bold mb-8 text-white border-b border-[#EB0028] pb-2 inline-block">
+                <h2 className="text-3xl font-bold mb-10 text-white border-b border-[#EB0028] pb-2 inline-block">
                     Sustainability Practices
                 </h2>
                 <div className="grid md:grid-cols-2 gap-8">
-                    <Card className="hover:border-[#EB0028] transition-colors duration-300">
-                        <h3 className="text-2xl font-bold mb-4 text-[#EB0028]">
-                            Zero Waste Initiative
-                        </h3>
-                        <ul className="list-inside text-gray-300 font-light space-y-2">
-                            <li>Digital-first ticketing and program guides.</li>
-                            <li>Recyclable and compostable food containers.</li>
-                            <li>Strict no-single-use-plastic policy.</li>
-                        </ul>
+                    {/* Zero Waste Initiative Card */}
+                    <Card className="hover:border-[#EB0028] transition-colors duration-300 p-8 flex flex-col justify-between h-full">
+                        <div>
+                            <div className="flex items-center gap-3 mb-6">
+                                <div className="p-3 rounded-full bg-[#EB0028]/10 text-[#EB0028]">
+                                    <Recycle className="w-6 h-6" />
+                                </div>
+                                <h3 className="text-2xl font-bold text-[#EB0028]">
+                                    Zero Waste Initiative
+                                </h3>
+                            </div>
+
+                            <div className="grid gap-6">
+                                {[
+                                    {
+                                        icon: Ticket,
+                                        text: "Digital-first ticketing and program guides to minimize paper usage."
+                                    },
+                                    {
+                                        icon: Utensils,
+                                        text: "Recyclable and compostable food containers throughout the venue."
+                                    },
+                                    {
+                                        icon: Ban,
+                                        text: "Strict no-single-use-plastic policy for all vendors and attendees."
+                                    }
+                                ].map((item, idx) => (
+                                    <div key={idx} className="flex items-start gap-4 group">
+                                        <div className="mt-1 p-2 rounded-lg bg-[#1a1a1a] group-hover:bg-[#EB0028] transition-colors duration-300">
+                                            <item.icon className="w-4 h-4 text-gray-400 group-hover:text-white transition-colors duration-300" />
+                                        </div>
+                                        <p className="text-gray-300 font-light group-hover:text-white transition-colors duration-300">
+                                            {item.text}
+                                        </p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                     </Card>
-                    <Card className="hover:border-[#EB0028] transition-colors duration-300">
-                        <h3 className="text-2xl font-bold mb-4 text-[#EB0028]">
-                            Eco-Friendly Venue
-                        </h3>
-                        <ul className="list-inside text-gray-300 font-light space-y-2">
-                            <li>Venue selected for public transport accessibility.</li>
-                            <li>Energy-efficient lighting and equipment.</li>
-                            <li>Carbon offset programs for speaker travel.</li>
-                        </ul>
+
+                    {/* Eco-Friendly Venue Card */}
+                    <Card className="hover:border-[#EB0028] transition-colors duration-300 p-8 flex flex-col justify-between h-full">
+                        <div>
+                            <div className="flex items-center gap-3 mb-6">
+                                <div className="p-3 rounded-full bg-[#EB0028]/10 text-[#EB0028]">
+                                    <Globe className="w-6 h-6" />
+                                </div>
+                                <h3 className="text-2xl font-bold text-[#EB0028]">
+                                    Eco-Friendly Venue
+                                </h3>
+                            </div>
+
+                            <div className="grid gap-6">
+                                {[
+                                    {
+                                        icon: Bus,
+                                        text: "Venue selected for optimal public transport accessibility."
+                                    },
+                                    {
+                                        icon: Zap,
+                                        text: "Energy-efficient lighting and equipment to reduce carbon footprint."
+                                    },
+                                    {
+                                        icon: Leaf,
+                                        text: "Carbon offset programs implemented for speaker travel."
+                                    }
+                                ].map((item, idx) => (
+                                    <div key={idx} className="flex items-start gap-4 group">
+                                        <div className="mt-1 p-2 rounded-lg bg-[#1a1a1a] group-hover:bg-[#EB0028] transition-colors duration-300">
+                                            <item.icon className="w-4 h-4 text-gray-400 group-hover:text-white transition-colors duration-300" />
+                                        </div>
+                                        <p className="text-gray-300 font-light group-hover:text-white transition-colors duration-300">
+                                            {item.text}
+                                        </p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                     </Card>
                 </div>
             </Section>
