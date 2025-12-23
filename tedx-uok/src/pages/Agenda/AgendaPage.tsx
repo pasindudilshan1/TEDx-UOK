@@ -1,5 +1,4 @@
-import { Calendar, Clock, MapPin, Mic } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { Calendar, Clock, MapPin, Mic } from "lucide-react"
@@ -193,8 +192,8 @@ const AgendaPage = () => {
                     {/* Content Card */}
                     <div
                       className={`w-full md:w-[45%] pl-12 sm:pl-16 md:pl-0 ${isLeft
-                          ? "md:pr-8 lg:pr-12 md:text-right"
-                          : "md:pl-8 lg:pl-12 md:text-left"
+                        ? "md:pr-8 lg:pr-12 md:text-right"
+                        : "md:pl-8 lg:pl-12 md:text-left"
                         }`}
                     >
                       <div className="group relative bg-[#0E0E0E] border border-[#1F1F1F] p-6 sm:p-8 rounded-xl transition-all duration-500 hover:border-[#EB0028]/40 hover:shadow-[0_4px_20px_-2px_rgba(235,0,40,0.1)]">
