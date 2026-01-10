@@ -33,6 +33,7 @@ import PaymentSuccessPage from "../pages/Payment/PaymentSuccessPage";
 import PaymentFailPage from "../pages/Payment/PaymentFailPage";
 import PaymentCancelPage from "../pages/Payment/PaymentCancelPage";
 import NotFoundPage from "../pages/NotFound/NotFoundPage";
+import CommunityRegistrationPage from "../pages/Community/CommunityPage";
 
 import ScrollToTop from "../components/common/ScrollToTop";
 
@@ -292,6 +293,15 @@ function AnimatedRoutes() {
         element={
           <div key={location.pathname} className="page-transition">
             <PaymentCancelPage />
+          </div>
+        }
+      />
+
+      <Route
+        path="/community/register"
+        element={
+          <div key={location.pathname} className="page-transition">
+            <CommunityRegistrationPage />
           </div>
         }
       />
